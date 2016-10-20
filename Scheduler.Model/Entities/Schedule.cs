@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Scheduler.Model
 {
@@ -21,8 +19,8 @@ namespace Scheduler.Model
         public ScheduleType Type { get; set; }
 
         public ScheduleStatus Status { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
         public User Creator { get; set; }
         public int CreatorId { get; set; }
         public ICollection<Attendee> Attendees { get; set; }
