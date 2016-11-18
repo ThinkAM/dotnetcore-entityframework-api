@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Scheduler.Model;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -13,6 +11,9 @@ namespace Scheduler.Data
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Attendee> Attendees { get; set; }
+        public DbSet<Cms> Cmsies { get; set; }
+        public DbSet<Field> Fields { get; set; }
+        public DbSet<WorkItemType> WorkItemTypes { get; set; }
 
         public SchedulerContext(DbContextOptions options) : base(options) { }
 
@@ -22,7 +23,6 @@ namespace Scheduler.Data
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
-
 
             modelBuilder.Entity<Schedule>()
                 .ToTable("Schedule");
@@ -72,6 +72,65 @@ namespace Scheduler.Data
                 .WithMany(s => s.Attendees)
                 .HasForeignKey(a => a.ScheduleId);
 
+            modelBuilder.Entity<Cms>()
+                .ToTable("Cms");
+
+            modelBuilder.Entity<Cms>()
+                .HasOne(prop => prop.WorkItemType)
+                .WithMany(w => w.Cmsies)
+                .HasForeignKey(prop => prop.WorkItemTypeId);
+
+            modelBuilder.Entity<Cms>()
+                .Property(prop => prop.Titulo)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            modelBuilder.Entity<Cms>()
+                .Property(prop => prop.WorkItemTypeId)
+                .IsRequired();
+
+            modelBuilder.Entity<Field>()
+                .ToTable("Field");
+
+            modelBuilder.Entity<Field>()
+                .HasOne(a => a.Cms)
+                .WithMany(u => u.Fields)
+                .HasForeignKey(u => u.CmsId);
+
+            modelBuilder.Entity<Field>()
+                .Property(prop => prop.Name)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            modelBuilder.Entity<Field>()
+                .Property(prop => prop.Type)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            modelBuilder.Entity<Field>()
+                .Property(prop => prop.Description)
+                .HasMaxLength(200)
+                .IsRequired();
+
+            modelBuilder.Entity<Field>()
+                 .Property(prop => prop.CmsId)
+                 .IsRequired();
+
+            modelBuilder.Entity<Field>()
+                .Property(prop => prop.DateCreated)
+                .HasDefaultValue(DateTime.UtcNow);
+
+            modelBuilder.Entity<Field>()
+                .Property(prop => prop.DateUpdated)
+                .HasDefaultValue(DateTime.UtcNow);
+
+            modelBuilder.Entity<WorkItemType>()
+                .ToTable("WorkItemType");
+
+            modelBuilder.Entity<WorkItemType>()
+               .Property(prop => prop.Name)
+               .HasMaxLength(100)
+               .IsRequired();
         }
     }
 }

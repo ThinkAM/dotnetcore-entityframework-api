@@ -16,6 +16,11 @@ namespace Scheduler.API.ViewModels.Mappings
                .ForMember(s => s.Attendees, map => map.UseValue(new List<Attendee>()));
 
             Mapper.CreateMap<UserViewModel, User>();
+
+            Mapper.CreateMap<CmsViewModel, Cms>()
+                .ForMember(s => s.Fields, map => map.UseValue(new List<Field>()));
+
+            Mapper.CreateMap<FieldViewModel, Field>();
         }
     }
 }

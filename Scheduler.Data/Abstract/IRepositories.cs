@@ -11,4 +11,10 @@ namespace Scheduler.Data.Abstract
     public interface IUserRepository : IEntityBaseRepository<User> { }
 
     public interface IAttendeeRepository : IEntityBaseRepository<Attendee> { }
+
+    public interface IFieldRepository : IEntityBaseRepository<Field> { }
+
+    public interface ICmsRepository : IEntityBaseRepository<Cms> { }
+
+    public interface IWorkItemTypeRepository : IEntityBaseRepository<WorkItemType> { }
 }

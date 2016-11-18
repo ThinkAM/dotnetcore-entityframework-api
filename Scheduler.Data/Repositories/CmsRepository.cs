@@ -3,9 +3,9 @@ using Scheduler.Data.Abstract;
 
 namespace Scheduler.Data.Repositories
 {
-    public class AttendeeRepository : EntityBaseRepository<Attendee>, IAttendeeRepository
+    public class CmsRepository : EntityBaseRepository<Cms>, ICmsRepository
     {
-        public AttendeeRepository(SchedulerContext context)
+        public CmsRepository(SchedulerContext context)
             : base(context)
         { }
     }

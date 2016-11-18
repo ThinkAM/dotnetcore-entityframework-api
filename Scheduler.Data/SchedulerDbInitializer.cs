@@ -18,7 +18,86 @@ namespace Scheduler.Data
 
         private static void InitializeSchedules()
         {
-            if(!context.Users.Any())
+            #region Work Item Type
+            WorkItemType witCmsAqua = new WorkItemType();
+            WorkItemType witCmsFarm = new WorkItemType();
+
+            if (!context.WorkItemTypes.Any())
+            {
+                witCmsAqua = new WorkItemType { Name = "CMS Aqua" };
+                witCmsFarm = new WorkItemType { Name = "CMS Farm" };
+
+                context.WorkItemTypes.Add(witCmsAqua);
+                context.WorkItemTypes.Add(witCmsFarm);
+            }
+            #endregion
+
+            #region Cms
+            Cms cmsConfiata = new Cms();
+            Cms cmsChacaraRM = new Cms();
+
+            if (!context.Cmsies.Any())
+            {
+                cmsConfiata = new Cms {
+                    Titulo = "Confiata",
+                    Avatar = "AvatarConfiata.png",
+                    WorkItemTypeId = witCmsAqua.Id,
+                    QtdFields = 50
+                };
+
+                cmsChacaraRM = new Cms {
+                    Titulo = "Chácara RM",
+                    Avatar = "AvatarChacaraRM.png",
+                    WorkItemTypeId = witCmsFarm.Id,
+                    QtdFields = 50
+                };
+
+                context.Cmsies.Add(cmsConfiata);
+                context.Cmsies.Add(cmsChacaraRM);
+            }
+            #endregion
+
+            #region Field
+            if (!context.Fields.Any())
+            {
+                Field field_01 = new Field {
+                    Name = "nome",
+                    Type = "Texto",
+                    Description = "Nome do Field",
+                    CmsId = cmsConfiata.Id,
+                    DateCreated = DateTime.UtcNow
+                };
+
+                Field field_02 = new Field {
+                    Name = "slogan",
+                    Type = "Texto",
+                    Description = "Slogan do Field",
+                    CmsId = cmsConfiata.Id,
+                    DateCreated = DateTime.UtcNow
+                };
+
+                Field field_03 = new Field {
+                    Name = "subtitulo",
+                    Type = "Texto",
+                    Description = "Subtitulo do Field",
+                    CmsId = cmsConfiata.Id,
+                    DateCreated = DateTime.UtcNow
+                };
+
+                Field field_04 = new Field {
+                    Name = "nome",
+                    Type = "Texto",
+                    Description = "Nome do Field",
+                    CmsId = cmsChacaraRM.Id,
+                    DateCreated = DateTime.UtcNow
+                };
+
+                context.Fields.Add(field_01); context.Fields.Add(field_02);
+                context.Fields.Add(field_03); context.Fields.Add(field_04);
+            }
+            #endregion
+
+            if (!context.Users.Any())
             {
                 User user_01 = new User { Name = "Chris Sakellarios", Profession = "Developer", Avatar = "avatar_02.png" };
 

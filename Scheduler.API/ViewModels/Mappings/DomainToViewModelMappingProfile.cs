@@ -3,7 +3,6 @@ using Scheduler.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Scheduler.API.ViewModels.Mappings
 {
@@ -34,6 +33,14 @@ namespace Scheduler.API.ViewModels.Mappings
             Mapper.CreateMap<User, UserViewModel>()
                 .ForMember(vm => vm.SchedulesCreated,
                     map => map.MapFrom(u => u.SchedulesCreated.Count()));
+
+            Mapper.CreateMap<Cms, CmsViewModel>()
+                .ForMember(vm => vm.WorkItemTypeName,
+                    map => map.MapFrom(prop => prop.WorkItemType.Name))
+                .ForMember(vm => vm.FieldsCreated,
+                    map => map.MapFrom(u => u.Fields.Count()));
+
+            Mapper.CreateMap<Field, FieldViewModel>();
         }
     }
 }
